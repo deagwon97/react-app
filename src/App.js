@@ -38,17 +38,18 @@ class App extends Component {
         {/* <Subject
          title = {this.state.subject.title}
          sub = {this.state.subject.sub}
-         ></Subject> */}
+         ></Subject>  */}
 
          
         <header>
           <h1><a href = "/" onClick={function(e){
             console.log(e);
             e.preventDefault();
-            //this.state.mode = "welcome";
+            this.state.mode = "welcome";
+            
             //debugger;
             alert("Hi")
-          }}>{this.state.subject.title}</a></h1>
+          }.bind(this)}>{this.state.subject.title}</a></h1>
           {this.state.subject.sub}
         </header>
 
