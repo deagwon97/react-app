@@ -3,6 +3,7 @@ import { Component } from 'react';
 import TOC from './components/TOC';
 import ReadContent from './components/ReadContent';
 import CreateContent from './components/CreateContent';
+import UpdateContent from './components/UpdateContent';
 import Subject from './components/Subject';
 import Control from './components/Control';
 
@@ -11,7 +12,7 @@ class App extends Component {
     super(props);
     this.max_content_id = 3;
     this.state = {
-      mode: 'create',
+      mode: 'welcome',
       selected_content_id: 2,
       subject: { title: 'Web', sub: 'Hello react world!' },
       welcom: { title: 'Hello!', desc: 'Welcome to the react world' },
@@ -27,9 +28,7 @@ class App extends Component {
       ],
     };
   }
-
-  render() {
-    console.log('App render');
+  getContent() {
     var _title,
       _desc,
       _article = null;
@@ -55,23 +54,40 @@ class App extends Component {
         <CreateContent
           onSubmit={function (_title, _desc) {
             this.max_content_id = this.max_content_id + 1;
-
-            var _contents = this.state.contents.concat({
+            var newContents = Array.from(this.state.contents);
+            newContents.push({
               id: this.max_content_id,
               title: _title,
               desc: _desc,
             });
-
             this.setState({
-              contents: _contents,
+              contents: newContents,
             });
           }.bind(this)}
         ></CreateContent>
       );
+    } else if (this.state.mode === 'update') {
+      _article = (
+        <UpdateContent
+          onSubmit={function (_title, _desc) {
+            this.max_content_id = this.max_content_id + 1;
+            var newContents = Array.from(this.state.contents);
+            newContents.push({
+              id: this.max_content_id,
+              title: _title,
+              desc: _desc,
+            });
+            this.setState({
+              contents: newContents,
+            });
+          }.bind(this)}
+        ></UpdateContent>
+      );
     }
+    return _article;
+  }
 
-    console.log('render', this);
-
+  render() {
     return (
       <div className="App">
         <Subject
@@ -99,7 +115,7 @@ class App extends Component {
             });
           }.bind(this)}
         ></Control>
-        {_article}
+        {this.getContent()}
       </div>
     );
   }
