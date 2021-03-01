@@ -8,5 +8,11 @@
     "editor.codeActionsOnSave": {
         // For ESLint
         "source.fixAll.eslint": true
-    }
+    },
+    "emmet.excludeLanguages": [
+        "markdown"
+    ],
+    "emmet.includeLanguages": {
+        "javascript": "javascriptreact"
+     }
 }
